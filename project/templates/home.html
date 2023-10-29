@@ -15,27 +15,70 @@
     {% if user.is_authenticated %}
     {% if projects %}
     <h1>Ваши проекты:</h1><br>
-        <p>
+<table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Название</th>
+              <th scope="col">Создатель</th>
+            </tr>
+          </thead>
             {% for i in projects %}
-            <a href='projects/{{i.id}}'>Проект {{i.name}}</a><br>
+            <tbody>
+                <tr>
+                    <th scope="row">{{i.id}}</th>
+                    <td><a href='projects/{{i.id}}'>{{i.name}}</a></td>
+                    <td>{{i.owner}}</td>
+                </tr>
+            </tbody>
             {% endfor %}
-        </p>
+</table>
+
     {% endif %}
     {% if participant %}
     <h2>Проекты в которых участвуете:</h2><br>
-    <p>
+    <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Название</th>
+              <th scope="col">Создатель</th>
+            </tr>
+          </thead>
         {% for i in participant %}
         {% if i.invite_status == True %}
-        <a href='projects/{{i.project.id}}'>Проект {{i.project.name}}</a><br>
+        <tbody>
+            <tr>
+                <th scope="row">{{i.project.id}}</th>
+                <td><a href='projects/{{i.id}}'>{{i.project.name}}</a></td>
+                <td>{{i.project.owner}}</td>
+            </tr>
+        </tbody>
         {% endif %}
         {% endfor %}
-    </p>
     {% endif %}
+    </table>
     {% endif %}
 <h2>Все проекты:</h2><br>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Название</th>
+      <th scope="col">Создатель</th>
+    </tr>
+  </thead>
 {% for i in all_projects %}
 {% if i.owner.id != user_id %}
-    <a href='projects/{{i.id}}'>Проект {{i.name}}</a><br>
+    <tbody>
+        <tr>
+            <th scope="row">{{i.id}}</th>
+            <td><a href='projects/{{i.id}}'>{{i.name}}</a></td>
+            <td>{{i.owner}}</td>
+        </tr>
+    </tbody>
+
 {% endif %}
 {% endfor %}
+</table>
 {% endblock %}
