@@ -35,8 +35,3 @@ class ProjectEditForm(forms.ModelForm):
     class Meta():
         model = Project
         fields = ['name', 'info']
-
-class InviteClaimForm(forms.ModelForm):
-    class Meta():
-        model = Participant
-        fields = ['invite_status']

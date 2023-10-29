@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from app.forms import UserCreationForm, ProjectCreationForm, ParticipantAddForm, ProjectEditForm, InviteClaimForm
+from app.forms import UserCreationForm, ProjectCreationForm, ParticipantAddForm, ProjectEditForm
 from app.models import Project, Participant, User
 
 
