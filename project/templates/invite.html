@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Приглашения: </h1><br>
+
+<form method="post" action="{% url 'app:invite' %}">
+    {% csrf_token %}
+    {% for i in participant %}
+        {% if i.invite_status == False %}
+            <a href="../{{i.project.id}}">{{i.project.name}}</a> <br>
+        {% endif %}
+    {% endfor %}
+</form>
+
+{% endblock %}

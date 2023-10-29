@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Проект {{project.name}}</h1>
+
+<h2>О проекте:</h2> <p>{{project.info}}</p>
+
+<h3>Создатель проекта: {{project.owner}}</h3>
+{% if participant %}
+        <h4>Участники:
+                {% if participant.invite_status == True %}
+                        {{participant.participant}}
+                {% endif %}
+        </h4>
+{% endif %}
+<form method="post">
+        {% csrf_token %}
+        {% if user_id == participant.participant and participant.invite_status == False %}
+                <input type="submit" value="Присоедениться" name="join"> <input type="submit" value="Отклонить" name="decline"> <br>
+        {% endif %}
+</form>
+{% if project.owner.id == user_id %}
+        <a href='edit/{{project.id}}'>Изменить информацию</a>
+{% endif %}
+{% endblock %}

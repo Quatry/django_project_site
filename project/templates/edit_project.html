@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+
+<h1>Проект <input type="text" value="{{project.name}}" name ='name'></h1>
+
+<h2>О проекте: <input type="text" value="{{project.info}}" name="info"></h2>
+
+<h3>Участники:
+
+    {% for i in participants %}
+        {% if i.project == project.id %}
+            <input type="text" value="{{i}}" name="participant">
+        {% endif %}
+    {% endfor %}
+</h3>
+<input type="submit" value="Изменить">
+</form>
+{% endblock %}
