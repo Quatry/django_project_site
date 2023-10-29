@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="{% url 'app:add_participant' project_id %}" method="post">
+<form action="" method="post">
     {% csrf_token %}
     {{participant}}
-    <input type="submit" value="Создать">
+    <input type="submit" value="Добавить" class="btn btn-success">
 </form>
 {% endblock %}

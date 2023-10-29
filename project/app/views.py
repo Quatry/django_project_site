@@ -30,7 +30,6 @@ class Register(View):
         }
         return render(request, self.template_name, context)
 
-
 def create_project(request):
     if request.method == 'POST':
         project = ProjectCreationForm(request.POST)
@@ -50,7 +49,6 @@ def create_project(request):
                   'create_project.html',
                   {'project': project, 'participant':participant}
                   )
-
 
 def home_page(request):
     projects = "Войдите в систему"
@@ -114,3 +112,16 @@ def invite(request):
     participant = Participant.objects.filter(participant=request.user.id).all()
     projects = Project.objects.all()
     return render(request,'invite.html',{'participant':participant,'projects':projects})
+
+def add_participant(request,project_id):
+    if request.method == 'POST':
+        participant = ParticipantAddForm(request.POST)
+        project = Project.objects.filter(id = project_id).get()
+        if participant.is_valid():
+            participant = participant.save(commit=False)
+            participant.project = project
+            participant.save()
+            return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
+    else:
+        participant = ParticipantAddForm()
+    return render(request,'add_participant.html', {'participant':participant})
