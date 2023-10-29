@@ -5,11 +5,26 @@
 
 <form method="post" action="{% url 'app:invite' %}">
     {% csrf_token %}
+    <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Название</th>
+              <th scope="col">Создатель</th>
+            </tr>
+          </thead>
     {% for i in participant %}
         {% if i.invite_status == False %}
-            <a href="../{{i.project.id}}">{{i.project.name}}</a> <br>
+            <tbody>
+                <tr>
+                    <th scope="row">{{i.project.id}}</th>
+                    <td><a href='../{{i.project.id}}'>{{i.project.name}}</a></td>
+                    <td>{{i.project.owner}}</td>
+                </tr>
+            </tbody>
         {% endif %}
     {% endfor %}
+    </table>
 </form>
 
 {% endblock %}

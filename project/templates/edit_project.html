@@ -4,18 +4,15 @@
 <form method="post">
     {% csrf_token %}
 
-<h1>Проект <input type="text" value="{{project.name}}" name ='name'></h1>
+<div class="input-group">
+  <span class="input-group-text">Название</span>
+  <textarea class="form-control" aria-label="With textarea" name ='name'>{{project.name}}</textarea>
+</div>
+    <div class="input-group">
+      <span class="input-group-text">О проекте</span>
+      <textarea class="form-control" aria-label="With textarea" name="info">{{project.info}}</textarea>
+    </div>
 
-<h2>О проекте: <input type="text" value="{{project.info}}" name="info"></h2>
-
-<h3>Участники:
-
-    {% for i in participants %}
-        {% if i.project == project.id %}
-            <input type="text" value="{{i}}" name="participant">
-        {% endif %}
-    {% endfor %}
-</h3>
-<input type="submit" value="Изменить">
+<input type="submit" value="Изменить" class="btn btn-success">
 </form>
 {% endblock %}
