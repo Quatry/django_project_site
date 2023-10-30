@@ -20,21 +20,29 @@
                         <tbody>
                             <tr>
                               <th scope="row">{{i.participant.id}}</th>
-                              <td>{{i.participant.username}}</td>
+                              <td><a href="../profile/{{i.participant.username}}">{{i.participant.username}}</a></td>
                             </tr>
                         </tbody>
                 {% endif %}
         {% endfor %}
 </table>
 {% endif %}
+{% for i in participant %}
+    {% if i.participant.id == user_id and i.invite_status == True %}
+        <form method="post">
+            {% csrf_token %}
+            <th scope="row"><input type="submit" value="Покинуть проект" name="leave" class="btn btn-secondary"></th>
+        </form>
+    {% endif %}
+{% endfor %}
 <form method="post">
         {% csrf_token %}
-        {% if user_id == participant_invite.participant.id and participant_invite.invite_status == False %}
-        <h4>Приглашение для вступления в проект
-                <input type="submit" value="Присоедениться" name="join" class="btn btn-success">
-                <input type="submit" value="Отклонить" name="decline" class="btn btn-secondary"> <br>
-        </h4>
-        {% endif %}
+            {% if user_id == participant_invite.participant.id and participant_invite.invite_status == False %}
+                <h4>Приглашение для вступления в проект
+                        <input type="submit" value="Присоедениться" name="join" class="btn btn-success">
+                        <input type="submit" value="Отклонить" name="decline" class="btn btn-secondary"> <br>
+                </h4>
+            {% endif %}
 </form>
 {% if project.owner.id == user_id %}
         <a href='edit/{{project.id}}'>Изменить информацию</a>

@@ -46,15 +46,15 @@
             </tr>
           </thead>
         {% for i in participant %}
-        {% if i.invite_status == True %}
-        <tbody>
-            <tr>
-                <th scope="row">{{i.project.id}}</th>
-                <td><a href='projects/{{i.project.id}}'>{{i.project.name}}</a></td>
-                <td>{{i.project.owner}}</td>
-            </tr>
-        </tbody>
-        {% endif %}
+            {% if i.invite_status == True %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{i.project.id}}</th>
+                        <td><a href='projects/{{i.project.id}}'>{{i.project.name}}</a></td>
+                        <td>{{i.project.owner}}</td>
+                    </tr>
+                </tbody>
+            {% endif %}
         {% endfor %}
     {% endif %}
     </table>
