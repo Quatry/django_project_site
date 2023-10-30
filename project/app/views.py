@@ -114,7 +114,6 @@ def edit_project(request, project_id):
                           )
     return redirect('home')
 
-
 def invite(request):
     participant = Participant.objects.filter(participant=request.user.id, invite_status=False).all()
     projects = Project.objects.all()
