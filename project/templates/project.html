@@ -6,14 +6,17 @@
 <h2>О проекте:</h2> <p class="lh-sm">{{project.info}}</p>
 
 <h3>Создатель проекта: {{project.owner}}</h3>
-{% if participant.invite_status == True %}
-        <h4>Участники:
-                        {{participant.participant}}
-        </h4>
+{% if participant %}
+        <h4>Участники:</h4>
+        {% for i in participant %}
+                {% if i.invite_status == True %}
+                                        {{i.participant.username}}
+                {% endif %}
+        {% endfor %}
 {% endif %}
 <form method="post">
         {% csrf_token %}
-        {% if user_id == participant.participant and participant.invite_status == False %}
+        {% if user_id == participant_invite.participant.id and participant_invite.invite_status == False %}
         <h4>Приглашение для вступления в проект
                 <input type="submit" value="Присоедениться" name="join" class="btn btn-success">
                 <input type="submit" value="Отклонить" name="decline" class="btn btn-secondary"> <br>
@@ -22,6 +25,10 @@
 </form>
 {% if project.owner.id == user_id %}
         <a href='edit/{{project.id}}'>Изменить информацию</a>
-        <a href="add_participant/{{project.id}}">Добавить участников</a>
+        <a href="add_participant/{{project.id}}">Добавить участников</a> <br>
+        <form method="post">
+                {% csrf_token %}
+                <input type="submit" name="delete_project" value="Удалить проект" class="btn btn-secondary">
+        </form>
 {% endif %}
 {% endblock %}
