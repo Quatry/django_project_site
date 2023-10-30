@@ -45,7 +45,7 @@
             {% endif %}
 </form>
 {% if project.owner.id == user_id %}
-        <a href='edit/{{project.id}}'>Изменить информацию</a>
+        <a href='edit/{{project.id}}'>Изменить информацию</a> |
         <a href="add_participant/{{project.id}}">Добавить участников</a> <br>
         <form method="post">
                 {% csrf_token %}

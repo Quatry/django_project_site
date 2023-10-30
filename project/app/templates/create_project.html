@@ -3,7 +3,7 @@
 {% block content %}
 <form action=" {% url 'app:create_project' %}" method="post" id="create">
     {% csrf_token %}
-    {{project}} <br>
+    {{project.as_p}} <br>
     <input type="submit" value="Создать" form="create">
 </form>
 {% endblock %}

@@ -10,8 +10,8 @@
   <form action="{% url 'app:login' %}" method="post">
     {{form}}
     {% csrf_token %}
-    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success">Войти</button>
   </form>
 
-  <a href="{% url 'app:password_reset' %}">Reset password</a>
+  <a href="{% url 'app:password_reset' %}">Сбросить пароль</a>
 {% endblock %}

@@ -34,21 +34,17 @@ class Register(View):
 def create_project(request):
     if request.method == 'POST':
         project = ProjectCreationForm(request.POST)
-        # participant = ParticipantAddForm(request.POST)
         if project.is_valid():
             form = project.save(commit=False)
             form.owner = request.user
             form.save()
-            # participant = participant.save(commit=False)
-            # participant.project = form
-            # participant.save()
             return redirect('home')
     else:
         project = ProjectCreationForm()
         participant = ParticipantAddForm()
     return render(request,
                   'create_project.html',
-                  {'project': project, 'participant': participant}
+                  {'project': project}
                   )
 
 
