@@ -17,7 +17,10 @@ class Project(models.Model):
 
 
 class Participant(models.Model):
-    participant = models.IntegerField('Участник')
+    participant = models.ForeignKey(
+                                    User,
+                                    on_delete=models.CASCADE,
+                                    )
     invite_status = models.BooleanField(default=False)
     project = models.ForeignKey(
         Project,
