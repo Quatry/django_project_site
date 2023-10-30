@@ -7,12 +7,25 @@
 
 <h3>Создатель проекта: {{project.owner}}</h3>
 {% if participant %}
+<table class="table table-sm">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Пользователь</th>
+    </tr>
+  </thead>
         <h4>Участники:</h4>
         {% for i in participant %}
                 {% if i.invite_status == True %}
-                                        {{i.participant.username}}
+                        <tbody>
+                            <tr>
+                              <th scope="row">{{i.participant.id}}</th>
+                              <td>{{i.participant.username}}</td>
+                            </tr>
+                        </tbody>
                 {% endif %}
         {% endfor %}
+</table>
 {% endif %}
 <form method="post">
         {% csrf_token %}
