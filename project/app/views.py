@@ -41,7 +41,6 @@ def create_project(request):
             return redirect('home')
     else:
         project = ProjectCreationForm()
-        participant = ParticipantAddForm()
     return render(request,
                   'create_project.html',
                   {'project': project}
