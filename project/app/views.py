@@ -33,14 +33,14 @@ class Register(View):
 def create_project(request):
     if request.method == 'POST':
         project = ProjectCreationForm(request.POST)
-        participant = ParticipantAddForm(request.POST)
+        # participant = ParticipantAddForm(request.POST)
         if project.is_valid():
             form = project.save(commit=False)
             form.owner = request.user
             form.save()
-            participant = participant.save(commit=False)
-            participant.project = form
-            participant.save()
+            # participant = participant.save(commit=False)
+            # participant.project = form
+            # participant.save()
             return redirect('home')
     else:
         project = ProjectCreationForm()
@@ -73,20 +73,25 @@ def home_page(request):
 def project(request,project_id):
     project = get_object_or_404(Project,id=project_id)
     user = request.user.id
+    participant = Participant.objects.filter(project = project_id).all()
     try:
-        participant = Participant.objects.filter(participant = request.user.id, project = project_id).get()
+        participant_invite = Participant.objects.filter(participant = request.user.id, project = project_id).get()
     except Participant.DoesNotExist:
-        participant = None
+        participant_invite: None = None
     if request.method == 'POST':
         if request.POST.get('join'):
-            participant.invite_status=True
-            participant.save()
+            participant_invite.invite_status=True
+            participant_invite.save()
         elif request.POST.get('decline'):
-            participant.delete()
+            participant_invite.delete()
+        elif request.POST.get('delete_project'):
+            project.delete()
+            return redirect('home')
         return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
     return render(request,
                   'project.html',
                   {'project':project,
+                   'participant_invite':participant_invite,
                    'participant':participant,
                    'user_id':user},
                   )
@@ -117,10 +122,15 @@ def add_participant(request,project_id):
     if request.method == 'POST':
         participant = ParticipantAddForm(request.POST)
         project = Project.objects.filter(id = project_id).get()
+        check_user_is_invited = None
         if participant.is_valid():
-            participant = participant.save(commit=False)
-            participant.project = project
-            participant.save()
+            try:
+                check_user_is_invited = Participant.objects.filter(project = project_id, participant = request.POST.get('participant')).get()
+                # СООБЩИТЬ ЧТО ПОЛЬЗОВАТЕЛЮ УЖЕ ОТПРАВЛЕНО ПРИГЛАШЕНИЕ
+            except check_user_is_invited==None:
+                participant = participant.save(commit=False)
+                participant.project = project
+                participant.save()
             return redirect(request.META.get('HTTP_REFERER', 'redirect_if_referer_not_found'))
     else:
         participant = ParticipantAddForm()
