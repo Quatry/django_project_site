@@ -4,6 +4,6 @@
 <form action=" {% url 'app:create_project' %}" method="post" id="create">
     {% csrf_token %}
     {{project.as_p}} <br>
-    <input type="submit" value="Создать" form="create">
+    <input type="submit" value="Создать" form="create" class="btn btn-success">
 </form>
 {% endblock %}
