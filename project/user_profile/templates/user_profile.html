@@ -1,7 +1,51 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Профиль {{user_info.username}}</h2>
+    {% if user_projects %}
+    <h2>Проекты {{user_info.username}}:</h2><br>
+<table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Название</th>
+              <th scope="col">Создатель</th>
+            </tr>
+          </thead>
+            {% for i in user_projects %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{i.id}}</th>
+                    <td><a href='../projects/{{i.id}}'>{{i.name}}</a></td>
+                    <td>{{i.owner}}</td>
+                </tr>
+            </tbody>
+            {% endfor %}
+</table>
+
+    {% endif %}
+    {% if user_participant %}
+    <h2>Проекты в которых участвует:</h2><br>
+    <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Название</th>
+              <th scope="col">Создатель</th>
+            </tr>
+          </thead>
+        {% for i in user_participant %}
+            {% if i.invite_status == True %}
+                <tbody>
+                    <tr>
+                        <th scope="row">{{i.project.id}}</th>
+                        <td><a href='projects/{{i.project.id}}'>{{i.project.name}}</a></td>
+                        <td>{{i.project.owner}}</td>
+                    </tr>
+                </tbody>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    </table>
 {% if owner == user_info.id %}
 Твоя страничка
 {% endif %}

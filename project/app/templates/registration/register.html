@@ -7,6 +7,6 @@
   <form action="{% url 'app:register' %}" method="post">
     {{form}}
     {% csrf_token %}
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn btn-success">Зарегистрироваться</button>
   </form>
 {% endblock %}

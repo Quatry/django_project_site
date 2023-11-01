@@ -3,7 +3,7 @@
 {% block content %}
 <form action="" method="post">
     {% csrf_token %}
-    {{participant}}
+    Участник: {{participant.participant}}
     <input type="submit" value="Добавить" class="btn btn-success"> <input type="button" onclick="history.back();" value="Назад" class="btn btn-success"/>
 </form>
 {% endblock %}
