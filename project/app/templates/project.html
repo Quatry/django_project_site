@@ -4,7 +4,14 @@
 <h1>Проект {{project.name}}</h1>
 
 <h2>О проекте:</h2> <p class="lh-sm">{{project.info}}</p>
-
+{% if update %}
+    {% for i in update %}
+        {{i.update}}
+    {% endfor %}
+{% endif %}
+{% if event %}
+    {{event}}
+{% endif %}
 <h3>Создатель проекта: {{project.owner}}</h3>
 {% if participant %}
 <table class="table table-sm">
@@ -46,7 +53,9 @@
 </form>
 {% if project.owner.id == user_id %}
         <a href='edit/{{project.id}}'>Изменить информацию</a> |
-        <a href="add_participant/{{project.id}}">Добавить участников</a> <br>
+        <a href="add_participant/{{project.id}}">Добавить участников</a> |
+        <a href="add_update/{{project.id}}">Добавить информацию об обновлении проекта</a> |
+        <a href="add_event/{{project.id}}">Добавить мероприяетие</a><br>
         <form method="post">
                 {% csrf_token %}
                 <input type="submit" name="delete_project" value="Удалить проект" class="btn btn-secondary">
